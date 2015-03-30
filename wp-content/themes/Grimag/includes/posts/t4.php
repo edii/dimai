@@ -39,20 +39,15 @@
 				if ( !empty($st_['title_disabled']) != 1 ) {
 					echo '<h3 class="post-title"><a href="' . get_permalink() . '">' . get_the_title() . '</a></h3>'; }
 	
-                                $post = get_post();       
-                                
-                                if($content = $post -> post_content): 
+                                if($post = get_post() and $content = $post -> post_content): 
+                                    
                                     if((int)$str_post = strpos($content, '<!--more-->')) {
-                                        //echo "AFTER";
+                                        
                                         $aftermore = 11 + $str_post;
-                                        $content = substr($content,$aftermore);
+                                        $content = substr($content, 0, $aftermore);
                                     } else {
                                          $content = preg_replace('#\[(.*)\](.*?)\[/(.*)?\]#si', '', $content);
                                          $content = string_intro($content, 255);
-                                            ///$content = strip_tags($content);
-                                         //$content = substr((string)$content, 0, 255);   
-                                        //$content = strip_tags($content);
-                                        // $content = substr($content, 0, 255);
                                     }
                                     echo wpautop( do_shortcode( $content ));
                                 endif;

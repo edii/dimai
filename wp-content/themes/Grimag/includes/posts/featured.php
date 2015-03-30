@@ -38,13 +38,27 @@
 			// Compose thumb
 			echo '<a href="' . get_permalink() . '" class="post-thumb" ' . ( function_exists( 'st_get_2x' ) ? st_get_2x( $post->ID, $st_query_feat->found_posts == 1 ? 'large' : 'project-medium', 'attr' ) : '' ) . ' style="background-image: url(' . $st_['thumb'] . ')" data-format="' . $st_['format'] . '">&nbsp;</a>';
 
+                        
+                        // content
+                        if($post = get_post() and $content = $post -> post_content): 
+                            if((int)$str_post = strpos($content, '<!--more-->')) {
+
+                                $aftermore = 11 + $str_post;
+                                $content = substr($content, 0, $aftermore);
+                            } else {
+                                 $content = preg_replace('#\[(.*)\](.*?)\[/(.*)?\]#si', '', $content);
+                                 $content = string_intro($content, 255);
+                            }
+                            echo wpautop( do_shortcode( $content ));
+                        endif;
 
 			// Other
 			echo '<div class="posts-featured-details-wrapper"><div>' .
 
 				'<h1><a href="' . get_permalink() . '">' . get_the_title() . '</a></h1>' .
 
-				wpautop( do_shortcode( get_the_excerpt() ) );
+				wpautop( do_shortcode( $content ));
+                                // wpautop( do_shortcode( get_the_excerpt() ) );
 
 				st_post_meta( true, false, false, 'number', false, true, __( 'More', 'strictthemes' ) );
 
