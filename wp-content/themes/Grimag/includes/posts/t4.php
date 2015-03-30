@@ -48,8 +48,9 @@
                                         $content = substr($content,$aftermore);
                                     } else {
                                          $content = preg_replace('#\[(.*)\](.*?)\[/(.*)?\]#si', '', $content);
-                                         $content = strip_tags($content);
-                                         $content = substr((string)$content, 0, 255);   
+                                         $content = string_intro($content, 255);
+                                            ///$content = strip_tags($content);
+                                         //$content = substr((string)$content, 0, 255);   
                                         //$content = strip_tags($content);
                                         // $content = substr($content, 0, 255);
                                     }

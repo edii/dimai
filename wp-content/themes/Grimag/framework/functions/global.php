@@ -881,13 +881,15 @@
                     foreach ($posts_array as $_k => $_post) {
                       
                         if($content = $_post -> post_content): 
-                            if((int)$str_post = strpos($content, '<!--more-->')) {
-                                $aftermore = 11 + $str_post;
+                            if((int)$str_post = strpos($content, '<!--more-intro-->')) {
+                                $aftermore = 17 + $str_post;
                                 $content = substr($content,$aftermore);
+                            } else {
+                                $content = preg_replace('#\[(.*)\](.*?)\[/(.*)?\]#si', '', $content);
+                                $content = string_intro($content, 80);
                             } 
-                             $content = preg_replace('#\[(.*)\](.*?)\[/(.*)?\]#si', '', $content);
-                             $content = strip_tags($content);
-                             $content = substr((string)$content, 0, 80); 
+                             //$content = strip_tags($content);
+                             //$content = substr((string)$content, 0, 80); 
                             
                         endif;       
                         
@@ -940,4 +942,13 @@
         return $pages; 
     }
 
+    function string_intro($string, $_len = 255) {
+        if(empty($string) or $_len <= 0) return;
+        $string = strip_tags($string);
+        $string = substr($string, 0, $_len);
+        $string = rtrim($string, "!,.-");
+        $string = substr($string, 0, strrpos($string, ' '));
+        return $string; 
+    }
+    
 ?>
