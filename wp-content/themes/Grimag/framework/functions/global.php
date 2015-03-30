@@ -883,7 +883,7 @@
                         if($content = $_post -> post_content): 
                             if((int)$str_post = strpos($content, '<!--more-intro-->')) {
                                 $aftermore = 17 + $str_post;
-                                $content = substr($content,$aftermore);
+                                $content = substr($content, 0, $aftermore);
                             } else {
                                 $content = preg_replace('#\[(.*)\](.*?)\[/(.*)?\]#si', '', $content);
                                 $content = string_intro($content, 80);

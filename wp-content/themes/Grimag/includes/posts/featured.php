@@ -49,7 +49,6 @@
                                  $content = preg_replace('#\[(.*)\](.*?)\[/(.*)?\]#si', '', $content);
                                  $content = string_intro($content, 255);
                             }
-                            echo wpautop( do_shortcode( $content ));
                         endif;
 
 			// Other
